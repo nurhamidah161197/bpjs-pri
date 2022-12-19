@@ -72,19 +72,18 @@ func UpdateMaster(c *gin.Context) {
 
 func DeleteMaster(c *gin.Context) {
 	var master structs.Master
-	var datakesehatan structs.DataKesehatan
 
 	nik := c.Param("nik")
 
 	master.NIK = nik
 
-	err := repository.DeleteMaster(database.DbConnection, master, datakesehatan)
+	err := repository.DeleteMaster(database.DbConnection, master)
 	if err != nil {
 		panic(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Delete Data Kesehatan",
+		"result": "Success Delete Data Master & Kesehatan",
 	})
 
 }

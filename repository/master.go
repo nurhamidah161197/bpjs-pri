@@ -17,8 +17,8 @@ func GetAllMaster(db *sql.DB) (results []structs.Master, err error) {
 	defer rows.Close()
 	for rows.Next() {
 		var master = structs.Master{}
-		err = rows.Scan(&master.NIK, &master.Nama, &master.Email, &master.Gender, &master.Alamat,
-			&master.TglLahir, &master.NoHp, &master.Created_at, &master.Updated_at)
+		err = rows.Scan(&master.Nama, &master.NIK, &master.Email, &master.Gender, &master.TglLahir,
+			&master.NoHp, &master.Alamat, &master.Created_at, &master.Updated_at)
 		if err != nil {
 			return nil, err
 		}
@@ -46,16 +46,13 @@ func UpdateMaster(db *sql.DB, master structs.Master) (err error) {
 	return errs.Err()
 }
 
-func DeleteMaster(db *sql.DB, master structs.Master, datakesehatan structs.DataKesehatan) (err error) {
+func DeleteMaster(db *sql.DB, master structs.Master) (err error) {
 	sql := "DELETE FROM masterdata WHERE nik = $1"
 	errs := db.QueryRow(sql, master.NIK)
 
 	if errs != nil {
 		panic(errs.Err())
 	}
-
-	sql2 := "DELETE FROM datakesehatan WHERE nik = $1"
-	errs = db.QueryRow(sql2, datakesehatan.NIK)
 
 	if errs != nil {
 		panic(errs.Err())

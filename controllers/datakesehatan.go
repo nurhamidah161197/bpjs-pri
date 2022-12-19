@@ -66,7 +66,7 @@ func InsertDataKesehatan(c *gin.Context) {
 
 }
 
-func UpdateFaskes(c *gin.Context) {
+func UpdateDataKesehatan(c *gin.Context) {
 
 	var datakesehatan structs.DataKesehatan
 
@@ -78,7 +78,7 @@ func UpdateFaskes(c *gin.Context) {
 	}
 	datakesehatan.NIK = nik
 
-	err = repository.UpdateFaskes(database.DbConnection, datakesehatan)
+	err = repository.UpdateDataKesehatan(database.DbConnection, datakesehatan)
 	if err != nil {
 		panic(err)
 	}
@@ -97,10 +97,6 @@ func Tagihan(c *gin.Context) {
 
 	nik := c.Param("nik")
 
-	err := c.ShouldBindJSON(&datakesehatan)
-	if err != nil {
-		panic(err)
-	}
 	datakesehatan.NIK = nik
 
 	datakesehatans, total_tagihan := repository.Tagihan(database.DbConnection, datakesehatan)
@@ -111,4 +107,22 @@ func Tagihan(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, result)
+}
+
+func DeleteDataKesehatan(c *gin.Context) {
+	var datakesehatan structs.DataKesehatan
+
+	nik := c.Param("nik")
+
+	datakesehatan.NIK = nik
+
+	err := repository.DeleteDataKesehatan(database.DbConnection, datakesehatan)
+	if err != nil {
+		panic(err)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "Success Delete Data Kesehatan",
+	})
+
 }

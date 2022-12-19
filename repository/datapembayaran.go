@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func GetDataPembayaranByPeriode(db *sql.DB, datapembayaran structs.DataPembayaran) (results []structs.DataPembayaran, err error) {
+func GetDataPembayaranByPeriodeNIK(db *sql.DB, datapembayaran structs.DataPembayaran) (results []structs.DataPembayaran, err error) {
 	sql := "SELECT * FROM datapembayaran WHERE nik=$1 AND periode=$2"
 	rows, err := db.Query(sql, datapembayaran.NIK, datapembayaran.Periode)
 	if err != nil {

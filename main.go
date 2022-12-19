@@ -46,6 +46,8 @@ func main() {
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disabl",
 		os.Getenv("PGHOST"), os.Getenv("PGPORT"), os.Getenv("PGUSER"), os.Getenv("PGPASSWORD"), os.Getenv("PGDATABASE"))
+	// psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	// 	os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
 
 	DB, err = sql.Open("postgres", psqlInfo)
 	err = DB.Ping()
@@ -80,10 +82,11 @@ func main() {
 	router.GET("/datakesehatan", basicAuth, controllers.GetAllDataKesehatan)
 	router.GET("/datakesehatan/bynik/:nik", basicAuth, controllers.GetDataKesehatanByNIK)
 	router.POST("/datakesehatan", basicAuth, controllers.InsertDataKesehatan)
-	router.PUT("/datakesehatan/:nik", basicAuth, controllers.UpdateFaskes)
+	router.PUT("/datakesehatan/:nik", basicAuth, controllers.UpdateDataKesehatan)
+	router.DELETE("/datakesehatan/:nik", basicAuth, controllers.DeleteDataKesehatan)
 
 	//start route pembayaran
-	router.GET("/datapembayaran/:nik/:periode", basicAuth, controllers.GetDataPembayaranByPeriode)
+	router.GET("/datapembayaran/:nik/:periode", basicAuth, controllers.GetDataPembayaranByPeriodeNIK)
 	router.POST("/bayar", basicAuth, controllers.Bayar)
 
 	//start route tagihan

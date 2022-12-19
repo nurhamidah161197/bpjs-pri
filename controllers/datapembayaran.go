@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetDataPembayaranByPeriode(c *gin.Context) {
+func GetDataPembayaranByPeriodeNIK(c *gin.Context) {
 	var datapembayaran structs.DataPembayaran
 
 	nik := c.Param("nik")
@@ -18,7 +18,7 @@ func GetDataPembayaranByPeriode(c *gin.Context) {
 	datapembayaran.NIK = nik
 	datapembayaran.Periode = periode
 
-	datapembayarans, err := repository.GetDataPembayaranByPeriode(database.DbConnection, datapembayaran)
+	datapembayarans, err := repository.GetDataPembayaranByPeriodeNIK(database.DbConnection, datapembayaran)
 
 	if err != nil {
 		c.Abort()
