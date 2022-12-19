@@ -91,5 +91,5 @@ func main() {
 
 	//start route tagihan
 	router.GET("/tagihan/:nik", basicAuth, controllers.Tagihan)
-	router.Run()
+	router.Run(":" + os.Getenv("PORT"))
 }
